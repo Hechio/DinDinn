@@ -9,13 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DinDinnAssigment">
-        <activity android:name=".MainActivity">
+        <activity android:name=".view.activities.IngredientScreenActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".view.activities.OrderScreenActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

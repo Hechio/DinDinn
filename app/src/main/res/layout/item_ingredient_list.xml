@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="@dimen/small"
+    android:layout_marginTop="@dimen/small"
+    android:layout_marginStart="@dimen/small"
+    app:cardCornerRadius="@dimen/small">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_small"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_baseline_fastfood_24"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/meal_holder"
+            android:textColor="@color/textBlack"
+            android:fontFamily="@font/montserrat_bold"
+            android:textSize="@dimen/text000"
+            android:layout_margin="@dimen/small"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/medium"
+            android:background="@drawable/border_grey_background">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/available_grey"
+                android:textColor="@color/white"
+                android:fontFamily="@font/sofia_pro"
+                android:textSize="12sp"
+                android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                android:text="@string/available"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textBlack"
+                android:layout_marginBottom="@dimen/small"
+                android:textSize="14sp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/holder_num"
+                />
+        </LinearLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</com.google.android.material.card.MaterialCardView>
