@@ -14,6 +14,6 @@
     <color name="grey">#CFCFCF</color>
     <color name="blue">#0461EB</color>
     <color name="dark_orange">#FB2E02</color>
-    <color name="home_back">#F0F0F2</color>
+    <color name="home_back">#EFEFF1</color>
     <color name="progress_grey">#EBECF0</color>
 </resources>

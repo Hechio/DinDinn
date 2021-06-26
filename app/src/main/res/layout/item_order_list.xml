@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardBackgroundColor="@color/home_back"
+    android:layout_marginStart="@dimen/medium"
+    android:layout_marginTop="@dimen/small"
+    app:cardElevation="0dp"
+    android:layout_marginBottom="@dimen/padding_small">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_order_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/textBlack"
+                android:textSize="@dimen/text003"
+                android:layout_weight=".2"
+                android:layout_marginTop="@dimen/small"
+                android:text="#559"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"/>
+
+            <TextView
+                android:id="@+id/tv_auto_reject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:gravity="end"
+                android:layout_weight=".2"
+                android:layout_marginTop="@dimen/small"
+                android:layout_toStartOf="@+id/tv_rem_time"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/auto_reject"
+                android:textColor="@color/grayCal"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tv_rem_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/textBlack"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginHorizontal="@dimen/medium"
+                android:textSize="@dimen/text_fourteen"
+                android:text="2 mins"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"/>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_time_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="at 01:34pm"
+                android:textColor="@color/grayCal"
+                android:textSize="12sp" />
+            <LinearLayout
+                android:id="@+id/ll_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="8dp"
+                android:layout_weight="6"
+                android:gravity="end"
+                android:layout_gravity="center_vertical|end"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginStart="@dimen/padding_small"
+                android:layout_marginEnd="@dimen/medium"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            app:layout_constraintTop_toBottomOf="@+id/ll_top"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            android:layout_marginTop="@dimen/small"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <TextView
+                android:id="@+id/btn_accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/accept"
+                android:background="@drawable/button_blue_background"
+                android:textColor="@color/white"
+                android:fontFamily="@font/montserrat_bold"
+                android:paddingHorizontal="13dp"
+                android:layout_gravity="end"
+                android:gravity="center"
+                android:layout_margin="@dimen/medium"
+                android:paddingVertical="3dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_order_items"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_order_item_list"
+                android:layout_weight=".7"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/home_back"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2 items"
+                android:layout_margin="@dimen/small"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

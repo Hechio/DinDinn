@@ -6,4 +6,6 @@
     <string name="meal_holder">Japanese Fried Rice + Chicken Katsu</string>
     <string name="available">Available</string>
     <string name="holder_num">22</string>
+    <string name="auto_reject">Auto reject</string>
+    <string name="accept">Accept</string>
 </resources>
