@@ -11,6 +11,7 @@
         android:background="@color/home_back"
         android:layout_marginVertical="@dimen/small"/>
     <TextView
+        android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1 Nasi Lemak"
@@ -22,12 +23,14 @@
         android:textAlignment="gravity"
         app:drawableStartCompat="@drawable/ic_baseline_clear_24" />
     <TextView
+        android:id="@+id/tv_protein"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_light"
         android:layout_marginStart="20dp"
         android:text="# Protein (7)"/>
     <TextView
+        android:id="@+id/tv_almond"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -35,6 +38,7 @@
         android:textColor="@color/textBlack"
         android:fontFamily="@font/montserrat_medium"/>
     <TextView
+        android:id="@+id/tv_more_egg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
