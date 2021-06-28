@@ -1,11 +1,16 @@
 package com.stevehechio.apps.dindinnassigment.di.module
 
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
 import com.stevehechio.apps.dindinnassigment.repository.data.api.NetworkService
 import com.stevehechio.apps.dindinnassigment.repository.data.api.OrderApi
 import com.stevehechio.apps.dindinnassigment.repository.data.model.Addon
+import com.stevehechio.apps.dindinnassigment.repository.data.model.Ingredient
 import com.stevehechio.apps.dindinnassigment.repository.data.model.Order
+import com.stevehechio.apps.dindinnassigment.view.adapters.IngredientAdapter
 import com.stevehechio.apps.dindinnassigment.view.adapters.OrderAdapter
 import com.stevehechio.apps.dindinnassigment.view.adapters.OrderAddonAdapter
+import com.stevehechio.apps.dindinnassigment.view.adapters.SectionPagerAdapter
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
@@ -44,6 +49,16 @@ class ApiModule {
     @Provides
     fun provideOrderAdapter(values: List<Order>?): OrderAdapter {
        return OrderAdapter(values)
+    }
+
+    @Provides
+    fun provideIngredientList(): List<Ingredient> {
+        return emptyList()
+    }
+
+    @Provides
+    fun provideIngredientAdapter(values: List<Ingredient>?): IngredientAdapter{
+        return IngredientAdapter(values)
     }
 
 }

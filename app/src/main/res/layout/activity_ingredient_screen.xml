@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".view.activities.IngredientScreenActivity">
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_top"
@@ -12,6 +13,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="0dp"
         app:layout_constraintStart_toStartOf="parent"
         android:elevation="@dimen/small">
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -37,6 +40,7 @@
                     app:queryHint="@string/search_for_an_item"
                     app:defaultQueryHint="@string/search_for_an_item"
                     android:layout_marginEnd="@dimen/medium"
+
                     android:background="@drawable/search_view_background"
                     app:iconifiedByDefault="false"
                     app:queryBackground="@android:color/transparent"
@@ -55,6 +59,28 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/ingre_fetch_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateOnly="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ingre_fetch_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textColor="@color/textBlack"
+        android:fontFamily="@font/sofia_pro"
+        android:textStyle="italic"
+        android:text="@string/no_order"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ingre_fetch_progress" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"

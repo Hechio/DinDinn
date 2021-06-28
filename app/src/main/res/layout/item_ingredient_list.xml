@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="@dimen/small"
+    app:cardBackgroundColor="@color/white"
     android:layout_marginTop="@dimen/small"
     android:layout_marginStart="@dimen/small"
     app:cardCornerRadius="@dimen/small">
@@ -12,12 +13,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <ImageView
+            android:id="@+id/iv_image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_small"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_baseline_fastfood_24"
             />
         <TextView
+            android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/meal_holder"
@@ -27,6 +30,7 @@
             android:layout_margin="@dimen/small"/>
 
         <LinearLayout
+            android:id="@+id/ll_available"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -35,6 +39,7 @@
             android:layout_marginBottom="@dimen/medium"
             android:background="@drawable/border_grey_background">
             <TextView
+                android:id="@+id/tv_available"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/available_grey"
@@ -45,6 +50,7 @@
                 android:text="@string/available"/>
 
             <TextView
+                android:id="@+id/tv_qty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/textBlack"

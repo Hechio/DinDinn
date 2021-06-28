@@ -1,5 +1,6 @@
 package com.stevehechio.apps.dindinnassigment.view.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -41,6 +42,7 @@ class OrderScreenActivity : AppCompatActivity() {
         }
 
         observeOrderLiveData()
+        ib_to_ingredients.setOnClickListener { startActivity(Intent(this,IngredientScreenActivity::class.java)) }
     }
 
     private fun observeOrderLiveData() {
