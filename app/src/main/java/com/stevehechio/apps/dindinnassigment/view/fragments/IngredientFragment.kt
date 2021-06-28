@@ -10,6 +10,7 @@ import com.stevehechio.apps.dindinnassigment.R
 import com.stevehechio.apps.dindinnassigment.databinding.FragmentIngredientBinding
 import com.stevehechio.apps.dindinnassigment.di.component.DaggerApiComponent
 import com.stevehechio.apps.dindinnassigment.repository.data.model.Ingredient
+import com.stevehechio.apps.dindinnassigment.utils.GridSpacingItemDecoration
 import com.stevehechio.apps.dindinnassigment.utils.gone
 import com.stevehechio.apps.dindinnassigment.utils.visible
 import com.stevehechio.apps.dindinnassigment.view.adapters.IngredientAdapter
@@ -40,6 +41,7 @@ class IngredientFragment : Fragment() {
             layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.HORIZONTAL,false)
             adapter = ingredientAdapter
         }
+        binding.rvIngredients.addItemDecoration(GridSpacingItemDecoration(2,30,true))
         ingredientAdapter.setIngredients(ingredientList,requireContext())
         binding.pbFetchProgress.gone()
         if (ingredientAdapter.itemCount < 1){

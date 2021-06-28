@@ -26,4 +26,10 @@ class SectionPagerAdapter(fa: FragmentManager, lifecycle: Lifecycle)
     override fun createFragment(position: Int): Fragment {
         return fragmentList[position]
     }
+
+    fun clearFragments(){
+        fragmentList.clear()
+        notifyDataSetChanged()
+    }
+
 }
