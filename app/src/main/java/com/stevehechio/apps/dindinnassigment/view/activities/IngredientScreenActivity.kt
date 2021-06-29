@@ -49,12 +49,16 @@ class IngredientScreenActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 if (newText.trim().isEmpty()){
+                    clearFragments()
+                    ingredientViewModel.refresh()
                     observeOrderLiveData(false)
+
                 }
                 return false
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
+
                 observeOrderLiveData(true)
                 val id = query.toIntOrNull() ?: 0
                 if (id > 0){
@@ -125,11 +129,11 @@ class IngredientScreenActivity : AppCompatActivity() {
 
 
     private fun observeOrderList(isSearch: Boolean) {
-        tab_layout.removeAllTabs()
-        sectionPagerAdapter?.clearFragments()
+        clearFragments()
         if (isSearch){
             ingredientViewModel.ingredientSearchListLiveData.observe(this, {
                     ingreMap ->
+                clearFragments()
                 val keysArray = ingreMap.keys.toList()
                 keysArray.forEach {
                     ingreMap[it]?.let { it1 ->
@@ -142,10 +146,12 @@ class IngredientScreenActivity : AppCompatActivity() {
                 TabLayoutMediator(tab_layout,view_pager){tab, pos ->
                     tab.text = keysArray[0]
                 }.attach()
+                view_pager.adapter?.notifyItemChanged(0)
             })
         }else{
             ingredientViewModel.ingredientListLiveData.observe(this, {
                     ingreMap ->
+                clearFragments()
                 val keysArray = ingreMap.keys.toList()
                 keysArray.forEach {
                     ingreMap[it]?.let { it1 ->
@@ -155,13 +161,19 @@ class IngredientScreenActivity : AppCompatActivity() {
                     }?.let { it2 ->  sectionPagerAdapter?.addFragment(it2)}
                 }
                 TabLayoutMediator(tab_layout,view_pager){tab, pos ->
-                    view_pager.setCurrentItem(tab.position,true)
+                    //view_pager.setCurrentItem(tab.position,true)
                     tab.text = keysArray[pos]
                 }.attach()
+                view_pager.adapter?.notifyItemChanged(0)
             })
         }
 
 
+    }
+
+    private fun clearFragments() {
+        tab_layout.removeAllTabs()
+        sectionPagerAdapter?.clearFragments()
     }
 
 }

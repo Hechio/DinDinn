@@ -42,7 +42,8 @@ class IngredientFragment : Fragment() {
             adapter = ingredientAdapter
         }
         //binding.rvIngredients.addItemDecoration(GridSpacingItemDecoration(2,30,true))
-        ingredientAdapter.setIngredients(ingredientList,requireContext())
+        ingredientAdapter.setContext(requireContext())
+        ingredientAdapter.submitList(ingredientList)
         binding.pbFetchProgress.gone()
         if (ingredientAdapter.itemCount < 1){
             binding.tvFetchError.visible()

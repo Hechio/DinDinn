@@ -20,7 +20,7 @@ object DateUtils {
     fun formatGMTDateStr(strDate: String): String {
         val inputFormatter: DateFormat =
             SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
-        inputFormatter.timeZone = TimeZone.getTimeZone("UTC")
+        inputFormatter.timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)
         val outputFormatter: DateFormat =
             SimpleDateFormat("hh:mm aa", Locale.getDefault())
         return outputFormatter.format(Objects.requireNonNull(inputFormatter.parse(strDate)))

@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stevehechio.apps.dindinnassigment.R
@@ -13,14 +15,13 @@ import com.stevehechio.apps.dindinnassigment.repository.data.model.Ingredient
 /**
  * Created by stevehechio on 6/28/21
  */
-class IngredientAdapter(values: List<Ingredient>?): RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder>() {
+class IngredientAdapter(values: List<Ingredient>?):
+    ListAdapter<Ingredient,IngredientAdapter.IngredientViewHolder>(IngredientDiffUtil()) {
     private var values: List<Ingredient>? = null
     private var mContext: Context? = null
 
-    fun setIngredients(values: List<Ingredient>?,mContext: Context?){
-        this.values = values
+    fun setContext(mContext: Context?){
         this.mContext = mContext
-        notifyDataSetChanged()
     }
 
     inner class IngredientViewHolder(private val binding: ItemIngredientListBinding): RecyclerView.ViewHolder(binding.root){
@@ -64,10 +65,17 @@ class IngredientAdapter(values: List<Ingredient>?): RecyclerView.Adapter<Ingredi
     }
 
     override fun onBindViewHolder(holder: IngredientViewHolder, position: Int) {
-        values?.get(position)?.let { holder.bindViews(it) }
+        getItem(position).let { holder.bindViews(it) }
     }
 
-    override fun getItemCount(): Int {
-        return values?.size ?: 0
+}
+class IngredientDiffUtil : DiffUtil.ItemCallback<Ingredient>(){
+    override fun areItemsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean {
+        return oldItem.id == newItem.id
     }
+
+    override fun areContentsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean {
+        return newItem == oldItem
+    }
+
 }
