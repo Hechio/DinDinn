@@ -129,6 +129,23 @@ class OrderAdapter(values: List<Order>?) : RecyclerView.Adapter<OrderAdapter.Ord
             binding.btnAccept.setOnClickListener {
                 onAcceptExpireButtonClickListener?.onAcceptExpireClicked(order,
                     timePassed > maxHandlerTime) }
+            if (timePassed > maxHandlerTime){
+                binding.btnAccept.background = mContext?.let {
+                    ResourcesCompat.getDrawable(
+                        it.resources,
+                        R.drawable.button_expired_background, it.theme
+                    )
+                }
+                binding.btnAccept.text = mContext?.getString(R.string.expired)
+            }else {
+                binding.btnAccept.background = mContext?.let {
+                    ResourcesCompat.getDrawable(
+                        it.resources,
+                        R.drawable.button_blue_background, it.theme
+                    )
+                }
+                binding.btnAccept.text = mContext?.getString(R.string.accept)
+            }
         }
         private fun setProgressView(totalCounts: Int, remCounts: Int, linearLayout: LinearLayout) {
 
@@ -210,6 +227,8 @@ class OrderAdapter(values: List<Order>?) : RecyclerView.Adapter<OrderAdapter.Ord
                 else -> {
                     if (seconds in 1..59){
                         setProgressView(5, 4, binding.llProgress)
+                    }else {
+                        setProgressView(5, 0, binding.llProgress)
                     }
                 }
             }
