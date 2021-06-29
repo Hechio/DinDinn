@@ -155,6 +155,7 @@ class IngredientScreenActivity : AppCompatActivity() {
                     }?.let { it2 ->  sectionPagerAdapter?.addFragment(it2)}
                 }
                 TabLayoutMediator(tab_layout,view_pager){tab, pos ->
+                    view_pager.setCurrentItem(tab.position,true)
                     tab.text = keysArray[pos]
                 }.attach()
             })

@@ -16,4 +16,5 @@
     <color name="dark_orange">#FB2E02</color>
     <color name="home_back">#EFEFF1</color>
     <color name="progress_grey">#EBECF0</color>
+    <color name="red">#D34644</color>
 </resources>

@@ -17,6 +17,7 @@ class SectionPagerAdapter(fa: FragmentManager, lifecycle: Lifecycle)
     //based on how many menu categories we have
     fun addFragment(fragment: Fragment) {
         fragmentList.add(fragment)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

@@ -41,7 +41,7 @@ class IngredientFragment : Fragment() {
             layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.HORIZONTAL,false)
             adapter = ingredientAdapter
         }
-        binding.rvIngredients.addItemDecoration(GridSpacingItemDecoration(2,30,true))
+        //binding.rvIngredients.addItemDecoration(GridSpacingItemDecoration(2,30,true))
         ingredientAdapter.setIngredients(ingredientList,requireContext())
         binding.pbFetchProgress.gone()
         if (ingredientAdapter.itemCount < 1){

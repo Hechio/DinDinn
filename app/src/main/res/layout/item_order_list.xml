@@ -74,9 +74,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:textAllCaps="false"
                 android:layout_gravity="center_vertical"
                 android:fontFamily="@font/montserrat_regular"
-                android:text="at 01:34pm"
+                tools:text="at 01:34pm"
                 android:textColor="@color/grayCal"
                 android:textSize="12sp" />
             <LinearLayout
@@ -133,6 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="2 items"
+                android:textColor="@color/grayCal"
                 android:layout_margin="@dimen/small"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>

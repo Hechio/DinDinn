@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.stevehechio.apps.dindinnassigment.R
 import com.stevehechio.apps.dindinnassigment.databinding.ItemOrderListBinding
 import com.stevehechio.apps.dindinnassigment.repository.data.model.Order
-import java.time.Instant
+import com.stevehechio.apps.dindinnassigment.utils.DateUtils
 import java.util.*
 import kotlin.math.ceil
 import kotlin.math.floor
@@ -67,22 +67,21 @@ class OrderAdapter(values: List<Order>?) : RecyclerView.Adapter<OrderAdapter.Ord
         var timePassed: Long = 0
 
 
+
         @RequiresApi(Build.VERSION_CODES.O)
         @SuppressLint("SetTextI18n")
         fun bindViews(order: Order) {
-            val createdString = order.created_at.subSequence(0,16).toString() + ":00Z"
-            val alertedString = order.alerted_at.subSequence(0,16).toString() + ":00Z"
-            val alertedAt = Instant.parse(alertedString).toEpochMilli()
+
+            val alertedAt = DateUtils.formatDateStr(order.alerted_at)
             val now = Date().time
-            val createdAt = Instant.parse(createdString).toEpochMilli()
+            val createdAt = DateUtils.formatDateStr(order.created_at)
+
 
             maxHandlerTime = alertedAt - createdAt
 
             timePassed = now - createdAt
 
-            if (binding.llProgress.childCount > 0) {
-                binding.llProgress.removeAllViews()
-            }
+           invalidateViews()
             val orderAddonAdapter = OrderAddonAdapter(order.addon)
             val innerLLM = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
             innerLLM.initialPrefetchItemCount = 2 // depends on screen size
@@ -105,8 +104,8 @@ class OrderAdapter(values: List<Order>?) : RecyclerView.Adapter<OrderAdapter.Ord
             binding.tvOrderId.text = "#${order.id}"
             orderAddonAdapter.setOrderAddon(order.addon)
             binding.tvCounts.text = "${order.addon.size} items"
-
-            setProgressView(5, 3, binding.llProgress)
+            binding.tvTimeAlert.text = DateUtils.formatGMTDateStr(order.alerted_at)
+            setProgressView(5, 0, binding.llProgress)
 
             timerHandler.postDelayed(timerRunnable, intervalTimeHandler)
         }
@@ -152,9 +151,52 @@ class OrderAdapter(values: List<Order>?) : RecyclerView.Adapter<OrderAdapter.Ord
                     timerHandler.postDelayed(this, intervalTimeHandler)
                     val timeRemaining: Long = maxHandlerTime - timePassed
                     binding.tvRemTime.text = secondsToMinutes(timeRemaining)
+                    updateProgress(timeRemaining)
                 } else {
+                    invalidateViews()
                     binding.tvRemTime.text = "0 s"
+                    showExpiredViews()
                 }
+            }
+        }
+
+        private fun showExpiredViews() {
+            binding.btnAccept.background = mContext?.let {
+                ResourcesCompat.getDrawable(
+                    it.resources,
+                    R.drawable.button_expired_background, it.theme
+                )
+            }
+            binding.btnAccept.text = mContext?.getString(R.string.expired)
+            setProgressView(5, 5, binding.llProgress)
+        }
+
+        private fun invalidateViews(){
+            if (binding.llProgress.childCount > 0) {
+                binding.llProgress.removeAllViews()
+            }
+        }
+
+        private fun updateProgress(millisUntilFinished: Long){
+            if (millisUntilFinished == 0L) return
+            invalidateViews()
+            val seconds = ceil((millisUntilFinished / 1000).toDouble()).toInt()
+            val min = floor((seconds / 60).toDouble()).toInt()
+            when(min){
+                1 -> setProgressView(5, 4, binding.llProgress)
+                2 -> setProgressView(5, 3, binding.llProgress)
+                3 -> setProgressView(5, 2, binding.llProgress)
+                4 -> setProgressView(5, 1, binding.llProgress)
+                else -> {
+                    if (seconds in 1..59){
+                        setProgressView(5, 4, binding.llProgress)
+                    }
+
+                }
+
+            }
+            if (seconds == 0){
+                showExpiredViews()
             }
         }
 
@@ -162,6 +204,7 @@ class OrderAdapter(values: List<Order>?) : RecyclerView.Adapter<OrderAdapter.Ord
             if (millisUntilFinished == 0L) {
                 return ""
             }
+
             val seconds = ceil((millisUntilFinished / 1000).toDouble()).toInt()
             val min = floor((seconds / 60).toDouble()).toInt()
             val secs = seconds % 60
@@ -172,11 +215,6 @@ class OrderAdapter(values: List<Order>?) : RecyclerView.Adapter<OrderAdapter.Ord
             } else {
                 "$seconds s"
             }
-        }
-        fun printDifference(startDate: Date?): Long {
-            if (startDate == null) return 0
-            val today = Date()
-            return today.time - startDate.time
         }
     }
 
