@@ -81,7 +81,7 @@
         android:textColor="@color/textBlack"
         android:fontFamily="@font/sofia_pro"
         android:textStyle="italic"
-        android:text="@string/no_order"
+        android:text="@string/no_ingredients"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ingre_fetch_progress" />

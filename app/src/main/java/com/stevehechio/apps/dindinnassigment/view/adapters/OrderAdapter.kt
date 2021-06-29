@@ -19,6 +19,7 @@ import com.stevehechio.apps.dindinnassigment.databinding.ItemOrderListBinding
 import com.stevehechio.apps.dindinnassigment.repository.data.model.Order
 import com.stevehechio.apps.dindinnassigment.utils.DateUtils
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.ceil
 import kotlin.math.floor
 
@@ -29,6 +30,9 @@ class OrderAdapter(values: List<Order>?) : RecyclerView.Adapter<OrderAdapter.Ord
 
     private var values: List<Order>? = null
     private var mContext: Context? = null
+    var onAcceptExpireButtonClickListener: OnAcceptExpireButtonClickListener? = null
+
+
 
     private val viewPool = RecyclerView.RecycledViewPool()
 
@@ -36,7 +40,21 @@ class OrderAdapter(values: List<Order>?) : RecyclerView.Adapter<OrderAdapter.Ord
         this.values = values
         this.mContext = mContext
         notifyDataSetChanged()
+    }fun setOrderList(values: List<Order>?){
+        this.values = values
+        notifyDataSetChanged()
     }
+
+    fun getOrderList():ArrayList<Order> {
+        val orderList = ArrayList<Order>()
+        values?.forEach { orderList.add(it) }
+        return orderList
+    }
+    fun setOnAcceptExpireButtonListener(onAcceptExpireButtonClickListener: OnAcceptExpireButtonClickListener){
+        this.onAcceptExpireButtonClickListener = onAcceptExpireButtonClickListener
+    }
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
         return OrderViewHolder(ItemOrderListBinding.inflate(
@@ -104,10 +122,13 @@ class OrderAdapter(values: List<Order>?) : RecyclerView.Adapter<OrderAdapter.Ord
             binding.tvOrderId.text = "#${order.id}"
             orderAddonAdapter.setOrderAddon(order.addon)
             binding.tvCounts.text = "${order.addon.size} items"
-            binding.tvTimeAlert.text = DateUtils.formatGMTDateStr(order.alerted_at)
+            binding.tvTimeAlert.text = "at ${DateUtils.formatGMTDateStr(order.alerted_at)}".lowercase()
             setProgressView(5, 0, binding.llProgress)
-
             timerHandler.postDelayed(timerRunnable, intervalTimeHandler)
+
+            binding.btnAccept.setOnClickListener {
+                onAcceptExpireButtonClickListener?.onAcceptExpireClicked(order,
+                    timePassed > maxHandlerTime) }
         }
         private fun setProgressView(totalCounts: Int, remCounts: Int, linearLayout: LinearLayout) {
 
@@ -150,7 +171,7 @@ class OrderAdapter(values: List<Order>?) : RecyclerView.Adapter<OrderAdapter.Ord
                 if (timePassed < maxHandlerTime) {
                     timerHandler.postDelayed(this, intervalTimeHandler)
                     val timeRemaining: Long = maxHandlerTime - timePassed
-                    binding.tvRemTime.text = secondsToMinutes(timeRemaining)
+                    binding.tvRemTime.text = DateUtils.secondsToMinutes(timeRemaining)
                     updateProgress(timeRemaining)
                 } else {
                     invalidateViews()
@@ -181,8 +202,7 @@ class OrderAdapter(values: List<Order>?) : RecyclerView.Adapter<OrderAdapter.Ord
             if (millisUntilFinished == 0L) return
             invalidateViews()
             val seconds = ceil((millisUntilFinished / 1000).toDouble()).toInt()
-            val min = floor((seconds / 60).toDouble()).toInt()
-            when(min){
+            when(floor((seconds / 60).toDouble()).toInt()){
                 1 -> setProgressView(5, 4, binding.llProgress)
                 2 -> setProgressView(5, 3, binding.llProgress)
                 3 -> setProgressView(5, 2, binding.llProgress)
@@ -191,34 +211,17 @@ class OrderAdapter(values: List<Order>?) : RecyclerView.Adapter<OrderAdapter.Ord
                     if (seconds in 1..59){
                         setProgressView(5, 4, binding.llProgress)
                     }
-
                 }
-
             }
             if (seconds == 0){
                 showExpiredViews()
             }
         }
-
-        private fun secondsToMinutes(millisUntilFinished: Long): String {
-            if (millisUntilFinished == 0L) {
-                return ""
-            }
-
-            val seconds = ceil((millisUntilFinished / 1000).toDouble()).toInt()
-            val min = floor((seconds / 60).toDouble()).toInt()
-            val secs = seconds % 60
-            return if (min > 0 && secs > 0) {
-                "$min min $secs s"
-            } else if (min > 0) {
-                "$min min $secs s"
-            } else {
-                "$seconds s"
-            }
-        }
     }
 
-
+interface OnAcceptExpireButtonClickListener{
+    fun onAcceptExpireClicked(order: Order, isExpired: Boolean)
+}
 
 
 }

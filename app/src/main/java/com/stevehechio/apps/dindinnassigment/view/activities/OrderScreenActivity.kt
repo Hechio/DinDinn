@@ -4,10 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.stevehechio.apps.dindinnassigment.databinding.ActivityOrderScreenBinding
 import com.stevehechio.apps.dindinnassigment.di.component.DaggerApiComponent
+import com.stevehechio.apps.dindinnassigment.repository.data.model.Order
 import com.stevehechio.apps.dindinnassigment.utils.gone
 import com.stevehechio.apps.dindinnassigment.utils.visible
 import com.stevehechio.apps.dindinnassigment.view.adapters.OrderAdapter
@@ -43,6 +45,21 @@ class OrderScreenActivity : AppCompatActivity() {
 
         observeOrderLiveData()
         ib_to_ingredients.setOnClickListener { startActivity(Intent(this,IngredientScreenActivity::class.java)) }
+        orderAdapter.setOnAcceptExpireButtonListener(object : OrderAdapter.OnAcceptExpireButtonClickListener {
+            override fun onAcceptExpireClicked(order: Order, isExpired: Boolean) {
+                val newArrayList = orderAdapter.getOrderList()
+                 newArrayList.remove(order)
+                orderAdapter.setOrderList(newArrayList)
+                val id = order.id
+                if (isExpired){
+                    Toast.makeText(applicationContext,"Order #$id moved to expired tab",Toast.LENGTH_SHORT).show()
+                }else {
+                    Toast.makeText(applicationContext,"Order #$id moved to processing tab",Toast.LENGTH_SHORT).show()
+                }
+
+            }
+
+        })
     }
 
     private fun observeOrderLiveData() {
