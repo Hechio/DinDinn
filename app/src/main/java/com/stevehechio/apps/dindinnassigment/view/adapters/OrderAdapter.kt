@@ -2,6 +2,8 @@ package com.stevehechio.apps.dindinnassigment.view.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
@@ -22,6 +24,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.ceil
 import kotlin.math.floor
+
 
 /**
  * Created by stevehechio on 6/27/21
@@ -234,6 +237,19 @@ class OrderAdapter(values: List<Order>?) : RecyclerView.Adapter<OrderAdapter.Ord
             }
             if (seconds == 0){
                 showExpiredViews()
+                playSound()
+            }
+        }
+
+        private fun playSound(){
+            try {
+                val notification: Uri =
+                    RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+                val r = RingtoneManager.getRingtone(
+                    mContext, notification)
+                r.play()
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
